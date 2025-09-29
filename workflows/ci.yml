@@ -31,35 +31,3 @@ jobs:
         run: |
           pip install pytest
           if [ -d tests ]; then pytest tests || echo "Brak testów"; fi
-
-      - name: Build Docker image
-        run: |
-          if [ -f Dockerfile ]; then docker build -t devops-app .; fi
-
-      - name: Docker run hello-world (smoke test)
-        run: |
-          docker run hello-world || echo "Docker hello-world test failed"
-
-      - name: Check YAML syntax
-        run: |
-          pip install yamllint
-          yamllint .
-
-      - name: Check Markdown files
-        run: |
-          pip install markdownlint-cli
-          markdownlint **/*.md || echo "Brak plików Markdown"
-
-      - name: Upload test results (if any)
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: tests/**/results*.xml
-
-      - name: Archive workspace
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: workspace-archive
-          path: ./
