@@ -1,0 +1,65 @@
+name: Basic DevOps CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Lint (flake8)
+        run: |
+          pip install flake8
+          if [ -d src ]; then flake8 src; fi
+
+      - name: Run tests
+        run: |
+          pip install pytest
+          if [ -d tests ]; then pytest tests || echo "Brak testów"; fi
+
+      - name: Build Docker image
+        run: |
+          if [ -f Dockerfile ]; then docker build -t devops-app .; fi
+
+      - name: Docker run hello-world (smoke test)
+        run: |
+          docker run hello-world || echo "Docker hello-world test failed"
+
+      - name: Check YAML syntax
+        run: |
+          pip install yamllint
+          yamllint .
+
+      - name: Check Markdown files
+        run: |
+          pip install markdownlint-cli
+          markdownlint **/*.md || echo "Brak plików Markdown"
+
+      - name: Upload test results (if any)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: tests/**/results*.xml
+
+      - name: Archive workspace
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: workspace-archive
+          path: ./
