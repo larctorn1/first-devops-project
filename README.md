@@ -11,7 +11,8 @@ Projekt do nauki praktyk DevOps
 - `/tests` - testy
 ## Konfiguracja
 1. Sklonuj repozytorium
-2. instalacja narzedzi jedna komenda ```bash
-curl -O https://raw.githubusercontent.com/p4b1o/osint-template/main/setup.sh && chmod +x setup.sh && ./setup.sh
+2. instalacja narzedzi jedna komenda 
+```bash
+curl -O https://raw.githubusercontent.com/larctorn1/first-devops-project/refs/heads/main/setup.sh && chmod +x setup.sh && ./setup.sh
 ```
 3. Postępuj zgodnie z instrukcjami w dokumentacji
