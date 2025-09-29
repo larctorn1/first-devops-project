@@ -1,8 +1,5 @@
 # First DevOps Project
-Część dodatkowa (2 godziny):
-Kryteria oceny
-Poziom podstawowy (obowiązkowy):
-Poziom zaawansowany:
+
 ## Opis
 Projekt do nauki praktyk DevOps
 ## Struktura
@@ -11,7 +8,7 @@ Projekt do nauki praktyk DevOps
 - `/tests` - testy
 ## Konfiguracja
 1. Sklonuj repozytorium
-2. instalacja narzedzi jedna komenda 
+2. Instalacja narzedzi jedna komenda 
 ```bash
 curl -O https://raw.githubusercontent.com/larctorn1/first-devops-project/refs/heads/main/setup.sh && chmod +x setup.sh && ./setup.sh
 ```
